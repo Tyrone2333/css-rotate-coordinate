@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'>
     <title>Examples</title>
-    <meta name="description" content="">
-    <meta name="keywords" content="">
-    <link href="" rel="stylesheet">
+    <meta name='description' content=''>
+    <meta name='keywords' content=''>
+    <link href='' rel='stylesheet'>
 </head>
 <body>
-<style type="text/css">
-    body{
-        padding:0;
-        margin:0;
+<style type='text/css'>
+    body {
+        padding: 0;
+        margin: 0;
     }
-    .box{
+
+    .box {
         width: 300px;
         height: 500px;
         border: 1px solid #f00;
@@ -24,63 +25,79 @@
         box-sizing: border-box;
         transform-origin: 50% 50%;
     }
-    .box1{
+
+    .box1 {
 
     }
-    .tip{
+
+    .tip {
         width: 20px;
         height: 20px;
         background: #00f;
         position: absolute;
     }
-    .control{
-        margin-top:  30px;
+
+    .control {
+        margin-top: 30px;
         margin-left: 50px;
     }
+
+    .outer {
+        background: #cccccc30;
+    }
 </style>
-<div class="box box1"></div>
-<div class="tip tip1"></div>
-<div class="tip tip2"></div>
-<div class="tip tip3"></div>
-<div class="tip tip4"></div>
-<div class="control">
+<div class='box box1'></div>
+<div class='tip tip1'></div>
+<div class='tip tip2'></div>
+<div class='tip tip3'></div>
+<div class='tip tip4'></div>
+<div class='tip outer'></div>
+<div class='control'>
     <p>ps: 请在支持es6语法的浏览器中运行</p>
-    旋转：<span class="label">0' </span>
-    <input type="range" value="0" min="0" max="360" step="1" id="range">
+    旋转：<span class='label'>0' </span>
+    <input type='range' value='0' min='0' max='360' step='1' id='range'>
 </div>
-<script type="text/javascript" src="transform.js"></script>
-<script type="text/javascript">
+<script type='text/javascript' src='transform.js'></script>
+<script type='text/javascript'>
     var box = document.querySelector(".box"),
         tip1 = document.querySelector(".tip1"),
         tip2 = document.querySelector(".tip2"),
         tip3 = document.querySelector(".tip3"),
         tip4 = document.querySelector(".tip4"),
+        outer = document.querySelector(".outer"),
         range = document.querySelector("#range"),
-        label = document.querySelector(".label");
+        label = document.querySelector(".label")
     var options = {
         x: box.offsetLeft,
         y: box.offsetTop,
         width: box.offsetWidth,
-        height: box.offsetHeight
-    };
-    function rotate(angle) {
-        box.style.cssText = `transform: rotate(${angle}deg)`;
-        var transformed = transform(options, angle);
-        console.log("transformed",transformed);
-        tip1.style.left = transformed.point.topLeft.x + 'px';
-        tip1.style.top = transformed.point.topLeft.y + 'px';
-        tip2.style.left = transformed.point.topRight.x + 'px';
-        tip2.style.top = transformed.point.topRight.y + 'px';
-        tip3.style.left = transformed.point.bottomLeft.x + 'px';
-        tip3.style.top = transformed.point.bottomLeft.y + 'px';
-        tip4.style.left = transformed.point.bottomRight.x + 'px';
-        tip4.style.top = transformed.point.bottomRight.y + 'px';
+        height: box.offsetHeight,
     }
-    range.addEventListener("change", function() {
-        label.innerHTML = `${range.value}'`;
-        rotate(range.value);
-    });
-    rotate(0);
+
+    function rotate(angle) {
+        box.style.cssText = `transform: rotate(${angle}deg)`
+        var transformed = transform(options, angle)
+        console.log("transformed", transformed)
+        outer.style.left = transformed.left + 'px'
+        outer.style.top = transformed.top + 'px'
+        outer.style.width = transformed.width + 'px'
+        outer.style.height = transformed.height + 'px'
+
+        tip1.style.left = transformed.point.topLeft.x + 'px'
+        tip1.style.top = transformed.point.topLeft.y + 'px'
+        tip2.style.left = transformed.point.topRight.x + 'px'
+        tip2.style.top = transformed.point.topRight.y + 'px'
+        tip3.style.left = transformed.point.bottomLeft.x + 'px'
+        tip3.style.top = transformed.point.bottomLeft.y + 'px'
+        tip4.style.left = transformed.point.bottomRight.x + 'px'
+        tip4.style.top = transformed.point.bottomRight.y + 'px'
+    }
+
+    range.addEventListener("change", function () {
+        label.innerHTML = `${range.value}'`
+        rotate(range.value)
+    })
+    rotate(0)
 </script>
 </body>
 </html>
